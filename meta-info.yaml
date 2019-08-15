@@ -1,0 +1,26 @@
+component : "htcondor_batch"
+type: compute_element
+version : 1.2
+site_level_config_version: 1.0
+runtime_vars:
+  - htcondor_runtime_var_batch_host
+host_requirements:
+  firewall:
+    - ports: 9618
+      protocol: tcp
+      action: accept
+      ipv6: true
+
+  cvmfs: false
+  host_certificates: false
+
+level_2_configurators:
+  sh:
+    docker_run_parameters:
+      privileged: true
+      hostname: *htcondor_runtime_var_batch_host
+      ports:
+        - "9618:9618"
+      tty: true
+      interactive: true
+      detached: true

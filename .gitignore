@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+# simple grid framework
+sh/.temp/
+cvmfs/
+logs/
+augmented_site_level_config_file.yaml
+puppet.sh
+clear.sh

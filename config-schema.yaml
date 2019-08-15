@@ -1,0 +1,4 @@
+expected-from-site-level-config:
+  Use ROLE: {type: str(), required: true, use_default: true}
+  CONDOR_HOST: {type: str(), required: true, use_default: false}
+  ALLOW_WRITE: {type: str(), required: true, use_default: false}
