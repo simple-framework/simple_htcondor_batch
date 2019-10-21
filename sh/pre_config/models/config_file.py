@@ -65,5 +65,4 @@ class ConfigFile:
     def add_advanced_parameters(self):
         pass
 
-    ## Utils ##
 
