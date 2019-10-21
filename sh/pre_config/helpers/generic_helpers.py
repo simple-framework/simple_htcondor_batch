@@ -3,10 +3,12 @@ import yaql
 
 engine = yaql.YaqlFactory().create()
 
+
 def get_lightweight_component(data, id):
     for component in data['lightweight_components']:
         if component['execution_id'] is int(id):
             return component
+
 
 def evaluate(data, query):
     expression = engine(query)
@@ -42,3 +44,12 @@ def get_voms_config(data, component_section):
                 })
         voms_config = default_voms_config
     return voms_config
+
+
+def get_dns_info(data, id):
+    dns = None
+    for dns_info in data['dns']:
+        if int(dns_info['execution_id']) == id:
+            dns = dns_info
+            break
+    return dns
