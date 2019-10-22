@@ -1,3 +1,1 @@
-htcondor_worker-expected-from-site-level-config:
-  htcondor_worker_use_role: &htcondor_worker_use_role "CentralManager"
-  htcondor_worker_host: { type: str(), required: true, use_default: false} #value needs to be hostname of container
+htcondor_batch-expected-from-site-level-config:
