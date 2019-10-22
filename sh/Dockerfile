@@ -1,14 +1,23 @@
 FROM cern/cc7-base
+MAINTAINER Mayank Sharma (mayank.sharma@cern.ch)
+
 ENV SIMPLE_CONFIG_DIR=/etc/simple_grid
 ENV HTCONDOR_CONFIG_DIR=/etc/condor
+## Install condor ##
 RUN yum install -y wget
 RUN wget https://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor
 RUN rpm --import RPM-GPG-KEY-HTCondor
 WORKDIR /etc/yum.repos.d/
 RUN wget https://research.cs.wisc.edu/htcondor/yum/repo.d/htcondor-stable-rhel7.repo
 RUN yum -y install condor
+
+## net tools ##
 RUN yum install -y iproute openssh openssh-server openssh-clients openssl-libs
 RUN yum install -y net-tools
+
+## Install utils ##
+RUN yum install -y vim less
+
 ENV container docker
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
 systemd-tmpfiles-setup.service ] || rm -f $i; done); \
