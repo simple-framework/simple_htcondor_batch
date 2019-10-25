@@ -1,4 +1,4 @@
-component : "htcondor_batch"
+component : HTCondor-Batch
 type: compute_element
 version : 1.2
 site_level_config_version: 1.0
