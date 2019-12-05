@@ -1,7 +1,11 @@
+import os
 import argparse
 import yaml
-from files.config_50PC import BatchConfig
 
+from files.config_50PC import BatchConfig
+from files.timezone import TimeZone
+from files.supplemental_config import SupplementalConfig
+from helpers.generic_helpers import get_lightweight_component
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -26,3 +30,18 @@ if __name__ == "__main__":
 
     config_50PC = BatchConfig("{output_dir}/50PC.conf".format(output_dir=output_dir), augmented_site_level_config, execution_id)
     config_50PC.generate_output_file()
+
+    timezone = TimeZone("{output_dir}/timezone".format(output_dir=output_dir), augmented_site_level_config, execution_id)
+    timezone.generate_output_file()
+
+    lc = get_lightweight_component(augmented_site_level_config, execution_id)
+
+    if os.path.exists('{output_dir}/supplemental_mapfile'.format(output_dir=output_dir)):
+        os.remove('{output_dir}/supplemental_mapfile'.format(output_dir=output_dir))
+
+    components = lc.get('supplemental_config', [])
+    if not (components is None or len(components) == 0):
+        for component in components:
+            supplemental_config = SupplementalConfig(output_dir, augmented_site_level_config, execution_id, component)
+            supplemental_config.generate_output_file()
+
