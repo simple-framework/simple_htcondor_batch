@@ -6,6 +6,11 @@ default_var_prefix: htcondor_batch_default_var
 runtime_vars:
   - htcondor_runtime_var_batch_host
 host_requirements:
+  firewall:
+    - ports: 9618
+      protocol: tcp
+      action: accept
+      ipv6: true
   cvmfs: false
   host_certificates: false
 
@@ -14,6 +19,8 @@ level_2_configurators:
     docker_run_parameters:
       privileged: true
       hostname: *htcondor_runtime_var_batch_host
+      ports:
+        - "9618:9618"
       tty: true
       interactive: true
       detached: true
