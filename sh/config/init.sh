@@ -5,6 +5,7 @@ echo "----------------------------------"
 echo "Copying config files from $SMIPLE_CONFIG_DIR/config to $HTCONDOR_CONFIIG_DIR/config.d"
 cp $SIMPLE_CONFIG_DIR/config/50PC.conf $HTCONDOR_CONFIG_DIR/config.d/50PC.conf
 
+
 echo "----------------------------------"
 echo "Set Timezone"
 echo "----------------------------------"
@@ -15,6 +16,11 @@ else
     mv /etc/localtime /etc/localtime.backup
     ln -s /usr/share/zoneinfo/$(cat $SIMPLE_CONFIG_DIR/config/timezone) /etc/localtime
 fi
+
+echo "Copying supplemental configs..."
+while IFS=":" read -r source dest; do
+  mkdir -p $(dirname ${dest}) && cp $SIMPLE_CONFIG_DIR/config/$source ${dest}
+done < ${SIMPLE_CONFIG_DIR}/config/supplemental_mapfile
 
 echo "----------------------------------"
 echo "Starting daemons"
