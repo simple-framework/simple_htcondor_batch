@@ -13,7 +13,6 @@ level_2_configurators:
   sh:
     docker_run_parameters:
       privileged: true
-      hostname: *htcondor_runtime_var_batch_host
       tty: true
       interactive: true
       detached: true
