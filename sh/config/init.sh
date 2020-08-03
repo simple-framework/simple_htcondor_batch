@@ -1,9 +1,10 @@
 #!/bin/bash
 echo "----------------------------------"
-echo "Initializing HTCondor Execute Node"
+echo "Initializing HTCondor Batch Node"
 echo "----------------------------------"
 echo "Copying config files from $SMIPLE_CONFIG_DIR/config to $HTCONDOR_CONFIIG_DIR/config.d"
 cp $SIMPLE_CONFIG_DIR/config/50PC.conf $HTCONDOR_CONFIG_DIR/config.d/50PC.conf
+cp $SIMPLE_CONFIG_DIR/config/70_accounting.conf $HTCONDOR_CONFIG_DIR/config.d/70_accounting.conf
 
 
 echo "----------------------------------"

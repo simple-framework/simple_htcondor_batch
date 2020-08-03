@@ -2,6 +2,7 @@ import os
 import argparse
 import yaml
 
+from accounting_config import AccountingConfig
 from files.config_50PC import BatchConfig
 from files.timezone import TimeZone
 from files.supplemental_config import SupplementalConfig
@@ -34,6 +35,10 @@ if __name__ == "__main__":
     timezone = TimeZone("{output_dir}/timezone".format(output_dir=output_dir), augmented_site_level_config, execution_id)
     timezone.generate_output_file()
 
+    config_accounting = AccountingConfig(f"{output_dir}/70_accounting.conf", augmented_site_level_config, execution_id)
+    config_accounting.generate_output_file()
+
+    # supplemental config
     lc = get_lightweight_component(augmented_site_level_config, execution_id)
 
     if os.path.exists('{output_dir}/supplemental_mapfile'.format(output_dir=output_dir)):
