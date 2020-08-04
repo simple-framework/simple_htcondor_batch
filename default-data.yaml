@@ -1,1 +1,4 @@
 htcondor-batch-expected-from-site-level-config:
+  htcondor_batch_default_var_priority_halflife: &htcondor_batch_default_var_priority_halflife 86400
+  htcondor_batch_default_var_group_autoregroup: &htcondor_batch_default_var_group_autoregroup True
+  htcondor_batch_default_var_group_accept_surplus: &htcondor_batch_default_var_group_autoregroup True

@@ -1,5 +1,5 @@
 expected-from-site-level-config:
   placeholder_param: {type: str(), required: false, use_default: false, description: "Ignore. Required due to a bug in the compiler: https://github.com/WLCG-Lightweight-Sites/simple_grid_yaml_compiler/issues/57"}
-  prioority_halflife: {type: int(), required: false, use_default: true, description: "See : https://htcondor.readthedocs.io/en/v8_9_7/admin-manual/user-priorities-negotiation.html"}
+  priority_halflife: {type: int(), required: false, use_default: true, description: "See : https://htcondor.readthedocs.io/en/v8_9_7/admin-manual/user-priorities-negotiation.html"}
   group_autoregroup: {type: bool(), required: false, use_default: true, description: "See : https://htcondor.readthedocs.io/en/v8_9_7/admin-manual/user-priorities-negotiation.html"}
   group_accept_surplus: {type: bool(), required: false, use_default: true, description: "See : https://htcondor.readthedocs.io/en/v8_9_7/admin-manual/user-priorities-negotiation.html"}

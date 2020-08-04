@@ -6,24 +6,21 @@ class AccountingConfig(ConfigFile):
     def __init__(self, output_file, augmented_site_level_config, execution_id):
         ConfigFile.__init__(self, output_file, augmented_site_level_config, execution_id)
 
-    def add_static_parameters(self):
-        super().add_static_parameters()
-        # Priority halflife is 24h
-        self.static_category.add_key_value("PRIORTIY_HALFLIFE", "86400")
-
-        # Allow groups to use more than fs
-        self.static_category.add_key_value("GROUP_AUTOREGROUP", "True")
-
-        self.static_category.add_key_value("GROUP_ACCEPT_SURPLUS", "True")
-        # Calculate the surplus allocated to each group correctly"
-        self.static_category.add_key_value("NEGOTIATOR_USE_WEIGHTED_DEMAND", "True")
-        self.static_category.add_key_value("NEGOTIATOR_ALLOW_QUOTA_OVERSUBSCRIPTION", "False")
+    def add_lightweight_component_queried_parameters(self):
+        super().add_lightweight_component_queried_parameters()
+        self.lightweight_component_queried_category.add_key_value_query("PRIORITY_HALFLIFE", "$.config.priority_halflife")
+        self.lightweight_component_queried_category.add_key_value_query("GROUP_AUTOREGROUP", "$.config.group_autoregroup")
 
     def add_advanced_parameters(self):
         super().add_advanced_parameters()
-        group_names_quotas = {}
-        voms_config = get_voms_config(self.augmented_site_level_config, self.lightweight_component)
 
+        accept_surplus = self.lightweight_component['config']['group_accept_surplus']
+        if accept_surplus:
+            self.advanced_category.add_key_value("GROUP_ACCEPT_SURPLUS", "True")
+            # Calculate the surplus allocated to each group correctly"
+            self.advanced_category.add_key_value("NEGOTIATOR_USE_WEIGHTED_DEMAND", "True")
+            self.advanced_category.add_key_value("NEGOTIATOR_ALLOW_QUOTA_OVERSUBSCRIPTION", "False")
+        group_names_quotas = {}
         # VO Based Accounting, FQAN based sub accounting
         supported_vos = get_supported_vos_with_quotas(self.augmented_site_level_config)
 
